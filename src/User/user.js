@@ -48,7 +48,7 @@ export class Users extends Component {
                                     <td>{user.email}</td>
                                     <td>{user.gender}</td>
                                     <td>
-                                        <Button onClick={() => this.toggle(user)} style={{backgroundColor:"#006600",width:"80px"}} className='edit'>Edit</Button>{" "}
+                                        <Button onClick={() => this.toggle(user)} style={{backgroundColor:"#006600",width:"80px"}} className='edit' >Edit</Button>{" "}
                                         <Button onClick={() => this.handleDelete(user.id)} style={{backgroundColor:"#990000",width:"80px"}} className='delete'>Delete</Button>
                                     </td>
                                 </tr>

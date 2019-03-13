@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux'
 
 import * as userActions from '../Action/user.action';
-import { Users } from './user';
 
 export class UserModal extends Component {
     state = {
@@ -18,8 +17,7 @@ export class UserModal extends Component {
         this.setState({ [e.target.name]: e.target.value })
     }
     handleSubmit = () => {
-        if (this.state.id === 0) {
-           
+        if (!this.props.user) {
             this.props.addUser({ ...this.state });
         }
         else {
@@ -29,7 +27,10 @@ export class UserModal extends Component {
             user.gender = this.state.gender;
             this.props.editUser(user.id, user)
         }
-        this.setState({ name: '', email: '', gender: '' })
+        this.closeModal();
+    }
+    closeModal = () => {
+        this.setState({ name: '', email: '', gender: '', id: 0 })
         this.props.toggle();
     }
     componentWillReceiveProps = (props) => {
@@ -39,7 +40,7 @@ export class UserModal extends Component {
     }
     render() {
         return (
-            <Modal isOpen={this.props.isOpen} toggle={this.props.toggle}>
+            <Modal isOpen={this.props.isOpen} toggle={this.closeModal}>
                 <Form style={{ margin: '20px' }}>
                     <FormGroup>
                         <Input type='text' name='name' placeholder='Name' defaultValue={this.state.name} onChange={this.handleChange} />
@@ -57,8 +58,9 @@ export class UserModal extends Component {
                         Female
                     </FormGroup>
                     <ModalFooter>
-                        <Button className='submit' onClick={this.handleSubmit} style={{backgroundColor:"#006600"}}>{this.props.user ? "Update" : "Submit"}</Button>
-                        <Button className='cancel' onClick={this.props.toggle} style={{backgroundColor:"#990000"}}>Cancel</Button>
+                        {this.props.user ? <Button className='update' onClick={this.handleSubmit} style={{backgroundColor:"#006600",width:"80px"}}>Update</Button> :
+                            <Button className='submit' onClick={this.handleSubmit} style={{backgroundColor:"#006600",width:"80px"}}>Submit</Button>}
+                        <Button className='cancel' onClick={this.closeModal} style={{backgroundColor:"#990000",width:"80px"}}>Cancel</Button>
                     </ModalFooter>
                 </Form>
             </Modal>

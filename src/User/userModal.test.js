@@ -83,8 +83,10 @@ describe('Tests for <UserModal/>', () => {
         let updateButton = wrapper.find('Button.update');
         updateButton.simulate('click');
         expect(props.editUser).toHaveBeenCalled();
+
     })
 
+    
     it('can toggle the modal when cancel button is clicked', () => {
         let props = { toggle: jest.fn() }
         let wrapper = shallow(<UserModal {...props} />);

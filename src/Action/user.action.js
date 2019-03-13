@@ -1,5 +1,5 @@
 import * as types from './user.action.constants';
-import * as services from '../services/userService';
+import * as services from '../Service/userService';
 
 export const getUsersAction = () => {
     return (dispatch) => {
